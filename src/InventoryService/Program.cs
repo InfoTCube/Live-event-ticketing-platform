@@ -1,4 +1,6 @@
 using InventoryService.Data;
+using InventoryService.Performances;
+using InventoryService.SeatInventories;
 using InventoryService.Seed;
 using InventoryService.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,8 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
+app.MapPerformanceEndpoints();
+app.MapSeatInventoryEndpoints();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();
