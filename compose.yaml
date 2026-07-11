@@ -54,6 +54,8 @@ services:
       context: ./src/InventoryService
     ports:
       - "5273:8080"
+    environment:
+      ConnectionStrings__Inventory: "Host=postgres-inventory;Port=5432;Database=inventory;Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-postgres}"
     depends_on:
       postgres-inventory:
         condition: service_healthy
