@@ -37,6 +37,30 @@ services:
       retries: 5
     restart: unless-stopped
 
+  booking:
+    build:
+      context: ./src/BookingService
+    ports:
+      - "5007:8080"
+    depends_on:
+      postgres-booking:
+        condition: service_healthy
+    networks:
+      - ticketing
+    restart: unless-stopped
+
+  inventory:
+    build:
+      context: ./src/InventoryService
+    ports:
+      - "5273:8080"
+    depends_on:
+      postgres-inventory:
+        condition: service_healthy
+    networks:
+      - ticketing
+    restart: unless-stopped
+
 networks:
   ticketing:
 
