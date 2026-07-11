@@ -1,4 +1,5 @@
 using InventoryService.Data;
+using InventoryService.Seed;
 using InventoryService.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,9 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetRequiredService<InventoryDbContext>().Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<InventoryDbContext>();
+    db.Database.Migrate();
+    InventorySeeder.Seed(db);
 }
 
 // Configure the HTTP request pipeline.
